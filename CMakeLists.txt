@@ -27,5 +27,5 @@ set(SOURCES_MATHLIB
 
 add_library(ghaluamathlib STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
 
-add_executable(reedsolomon_test src/main.cpp)
+add_executable(reedsolomon_test src/test.cpp)
 target_link_libraries(reedsolomon_test reedsolomonlib ghaluamathlib)
