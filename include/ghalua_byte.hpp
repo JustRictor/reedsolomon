@@ -6,54 +6,38 @@
 namespace Gf
 {
 
-/*!
- * 1011101 * 1011
- * 1011101 + 0 + 001011101 + 0001011101
- * 100
- *
- * 110 * 11
- * 110 + 1100
- * 1010
- */
+
+static const uint16_t polyGenerator_ = 285;
+
 class Byte
 {
 private:
     uint8_t value;
 public:
-    Byte() = default;
-    Byte(Byte&& val) = default;
+    Byte();
+    Byte(Byte&& val);;
     Byte(Byte const& val) = default;
-    Byte operator=(Byte const& val)
-    { value = val.value; }
+    Byte& operator=(Byte const& val);
     ~Byte() = default;
 
-    Byte(uint8_t val)
-        : value(val)
-    {}
-    Byte operator=(Byte&& val)
-    { value = val.value; }
+    Byte(uint8_t val);
 
-    bool operator == (Byte const& num) const noexcept
-    { return value == num.value; }
-    Byte operator +  (Byte const& num) const noexcept
-    { return value ^ num.value;  }
-    Byte operator *  (Byte const& num) const
-    {
-        Byte returnValue{0};
-        uint8_t itCount = 0;
-        while(value != 0 || num.value != 0)
-        {
-            returnValue.value +=
-                      ( ( (value >> itCount) & 0x01 )
-                    ^ ( (num.value >> itCount) & 0x01 ) ) << itCount;
-            itCount++;
-        }
-    }
+    bool operator == (Byte const& num) const noexcept;
+    Byte operator +  (Byte const& num) const noexcept;
+    Byte operator *  (Byte const& num) const;
     Byte operator /  (Byte const& num) const;
 
     Byte pow(uint8_t val) const;
 
-
+private:
+    uint8_t indexMSB() const noexcept
+    {
+        uint8_t ind = value;
+        ind |= ind >> 1;
+        ind |= ind >> 2;
+        ind |= ind >> 4;
+        return ind - (ind >> 1);
+    }
 };//Byte
 
 

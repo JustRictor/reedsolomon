@@ -4,22 +4,28 @@ project(reedsolomon LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_definitions(-D)
-
-set(SOURCE_LIB
-        src/ghalua_byte.cpp
-        src/ghalua_poly.cpp
-    )
+include_directories(include)
 
 set(HEADERS_LIB
         include/ghalua_byte.hpp
         include/ghalua_poly.hpp
     )
 
-include_directories(include)
+set(SOURCE_LIB
+        src/ghalua_byte.cpp
+        src/ghalua_poly.cpp
+    )
 
-add_library(reedsolomon STATIC ${HEADERS_LIB} ${SOURCE_LIB})
+add_library(reedsolomonlib STATIC ${HEADERS_LIB} ${SOURCE_LIB})
+
+set(HEADERS_MATHLIB
+        include/ghalua_math.hpp
+    )
+set(SOURCES_MATHLIB
+        src/ghalua_math.cpp
+    )
+
+add_library(ghaluamathlib STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
 
 add_executable(reedsolomon_test src/main.cpp)
-target_link_libraries(reedsolomon_test reedsolomon)
+target_link_libraries(reedsolomon_test reedsolomonlib ghaluamathlib)
