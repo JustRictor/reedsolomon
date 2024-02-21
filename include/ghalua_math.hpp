@@ -15,7 +15,7 @@ constexpr T indexMSB_(T num)
     {
         itCount++;
     }
-    return itCount;
+    return itCount - 1;
 }
 
 static const uint32_t polyGenerator_ = 11;
@@ -24,7 +24,7 @@ static constexpr uint32_t MSBpolyGen_ = indexMSB_(polyGenerator_);
 template<typename T>
 constexpr T mult(T const& num1, T const& num2)
 {
-    T returnValue = 0;
+    uint64_t returnValue = 0; //<\64 чтобы при любом значении не улететь за старший бит
     uint8_t itCount = 0;
     /*Перемножение чисел с выходом за поле*/
     while( (num2 >> itCount) > 0 )
@@ -37,19 +37,22 @@ constexpr T mult(T const& num1, T const& num2)
     T MSBVal = indexMSB_(returnValue);
     while(MSBVal >= MSBpolyGen_)
     {
-        MSBVal = indexMSB_(returnValue);
         T divRes = 1 << ( MSBVal - MSBpolyGen_ );
         returnValue ^= polyGenerator_ << (divRes - 1);
+        MSBVal = indexMSB_(returnValue);
     }
     return returnValue;
 }
 
 template<typename T>
-constexpr T pow(T const& num, T const& pow)
+constexpr T pow(T const& num, T n)
 {
-    if(pow <= 1)
-        return num;
-    return pow(mult(num,num),pow--);
+    if(n == 0) return 1;
+    if(n == 1) return num;
+    T retValue = num;
+    while(n-- > 1)
+        retValue = Gf::mult(retValue,num);
+    return retValue;
 }
 
 
