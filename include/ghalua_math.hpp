@@ -8,7 +8,7 @@ namespace Gf
 
 
 template<typename T>
-constexpr T indexMSB_(T num)
+constexpr T indexMSB_(T const& num)
 {
     T itCount = 0;
     while( (num >> itCount) >= 1 )
@@ -17,8 +17,12 @@ constexpr T indexMSB_(T num)
     }
     return itCount - 1;
 }
-
+#ifdef __GhaluaField8_
 static const uint32_t polyGenerator_ = 11;
+#endif
+#ifdef __GhaluaField256_
+static const uint32_t polyGenerator_ = 285;
+#endif
 static constexpr uint32_t MSBpolyGen_ = indexMSB_(polyGenerator_);
 
 template<typename T>
