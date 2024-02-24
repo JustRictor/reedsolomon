@@ -17,9 +17,6 @@ constexpr T indexMSB_(T const& num)
     }
     return itCount - 1;
 }
-#ifdef __GhaluaField8_
-static const uint32_t polyGenerator_ = 11;
-#endif
 #ifdef __GhaluaField256_
 static const uint32_t polyGenerator_ = 285;
 #endif
