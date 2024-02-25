@@ -2,20 +2,21 @@
 #define __GHALUA_BYTE_HPP_
 
 #include <cstdint>
+#include "ghalua_math.hpp"
 
 namespace Gf
 {
 
 
-static const uint16_t polyGenerator_ = 285;
-
 class Byte
 {
 private:
     uint8_t value;
+    static constexpr auto pow2table = genPow2Table_();
+
 public:
     Byte();
-    Byte(Byte&& val);;
+    Byte(Byte&& val);
     Byte(Byte const& val) = default;
     Byte& operator=(Byte const& val);
     ~Byte() = default;
@@ -30,14 +31,6 @@ public:
     Byte pow(uint8_t val) const;
 
 private:
-    uint8_t indexMSB() const noexcept
-    {
-        uint8_t ind = value;
-        ind |= ind >> 1;
-        ind |= ind >> 2;
-        ind |= ind >> 4;
-        return ind - (ind >> 1);
-    }
 };//Byte
 
 

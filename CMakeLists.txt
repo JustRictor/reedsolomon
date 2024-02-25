@@ -24,7 +24,6 @@ set(HEADERS_MATHLIB
         include/ghalua_math.hpp
     )
 set(SOURCES_MATHLIB
-        src/ghalua_math.cpp
         src/ghalua_math_tests.cpp
     )
 
