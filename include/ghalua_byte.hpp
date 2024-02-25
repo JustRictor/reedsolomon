@@ -13,22 +13,18 @@ class Byte
 private:
     uint8_t value;
     static constexpr auto pow2table = genPow2Table_();
+    static constexpr auto log2table = genLog2Table_();
 
 public:
     Byte();
-    Byte(Byte&& val);
-    Byte(Byte const& val) = default;
-    Byte& operator=(Byte const& val);
-    ~Byte() = default;
-
     Byte(uint8_t val);
 
     bool operator == (Byte const& num) const noexcept;
     Byte operator +  (Byte const& num) const noexcept;
-    Byte operator *  (Byte const& num) const;
-    Byte operator /  (Byte const& num) const;
+    Byte operator *  (Byte const& num) const noexcept;
+    Byte operator /  (Byte const& num) const noexcept;
 
-    Byte pow(uint8_t val) const;
+    Byte pow(uint8_t val) const noexcept;
 
 private:
 };//Byte
