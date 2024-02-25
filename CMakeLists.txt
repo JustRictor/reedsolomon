@@ -5,7 +5,7 @@ project(reedsolomon LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include)
-add_definitions(-D__GhaluaField256_)
+add_definitions(-D__GFPoly_=285)
 
 set(HEADERS_SOLOMONLIB
         include/ghalua_byte.hpp
