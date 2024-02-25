@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include)
 add_definitions(-D__GFPoly_=285)
+add_definitions(-D__ENABLE_TESTS_)
 
 set(HEADERS_SOLOMONLIB
         include/ghalua_byte.hpp
@@ -24,9 +25,10 @@ set(HEADERS_MATHLIB
     )
 set(SOURCES_MATHLIB
         src/ghalua_math.cpp
+        src/ghalua_math_tests.cpp
     )
 
 add_library(ghaluamathlib STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
 
-add_executable(reedsolomon_test src/test.cpp)
-target_link_libraries(reedsolomon_test reedsolomonlib ghaluamathlib)
+add_executable(reedsolomon_devtest src/devtest.cpp)
+target_link_libraries(reedsolomon_devtest reedsolomonlib ghaluamathlib)

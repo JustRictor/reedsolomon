@@ -1,9 +1,10 @@
-#include <iostream>
-#include "ghalua_math.hpp"
+#ifdef __ENABLE_TESTS_
+///\note Плохой вариант, посмотреть тестирование библиотек при сборке
+#include "ghalua_math.cpp"
 
-int main()
+constexpr bool testGenTable()
 {
-    uint8_t powTable_valid[256]{
+    constexpr std::array<uint8_t,256> table_valid{
         0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80,
         0x1d, 0x3a, 0x74, 0xe8, 0xcd, 0x87, 0x13, 0x26,
         0x4c, 0x98, 0x2d, 0x5a, 0xb4, 0x75, 0xea, 0xc9,
@@ -37,16 +38,15 @@ int main()
         0x2c, 0x58, 0xb0, 0x7d, 0xfa, 0xe9, 0xcf, 0x83,
         0x1b, 0x36, 0x6c, 0xd8, 0xad, 0x47, 0x8e, 0x01,
     };
+    std::array<uint8_t,256> table_exp = Gf::genTable_();
 
-    std::array<uint8_t,256> table = Gf::genTable_();
-    for(uint16_t i = 0; i < 256; i++)
-    {
-        uint8_t res = Gf::pow( (uint8_t)2, (uint8_t)i );
-        if( powTable_valid[i] != res )
-        {
-            std::cout << "FAIL ( 2 ** " << i << " ) = " << (int)res
-                      << " Expected: " << (int)powTable_valid[i] << "\n";
-        }
-    }
-    return 0;
+    for(size_t i = 0; i < 256; i++)
+        if(table_valid[i] != table_exp[i])
+            return false;
+
+    return true;
 }
+
+static_assert (testGenTable(), "ERR");
+
+#endif//__ENABLE_TESTS_
