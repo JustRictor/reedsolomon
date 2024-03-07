@@ -18,7 +18,7 @@ set(SOURCE_SOLOMONLIB
         src/ghalua_poly.cpp
     )
 
-add_library(reedsolomonlib STATIC ${HEADERS_SOLOMONLIB} ${SOURCE_SOLOMONLIB})
+add_library(reedsolomon_code STATIC ${HEADERS_SOLOMONLIB} ${SOURCE_SOLOMONLIB})
 
 set(HEADERS_MATHLIB
         include/ghalua_math.hpp
@@ -27,7 +27,7 @@ set(SOURCES_MATHLIB
         src/ghalua_math_tests.cpp
     )
 
-add_library(ghaluamathlib STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
+add_library(ghalua_math STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
 
 add_executable(reedsolomon_devtest src/devtest.cpp)
-target_link_libraries(reedsolomon_devtest reedsolomonlib ghaluamathlib)
+target_link_libraries(reedsolomon_devtest reedsolomon_code ghalua_math)
