@@ -85,12 +85,12 @@ constexpr bool testGenLog2Table()
     };
     std::array<uint8_t,256> table_exp = Gf::genLog2Table_();
     for(size_t i = 1; i < 256; i++)
-        if(table_exp[i] != table_valid[table_exp[i]])
+        if(i != table_valid[table_exp[i]])
             return false;
     return true;
 }
 
-//static_assert (testGenPow2Table(), "");
-//static_assert (testGenLog2Table(), "");
+static_assert (testGenPow2Table(), "");
+static_assert (testGenLog2Table(), "");
 
 #endif//__ENABLE_TESTS_

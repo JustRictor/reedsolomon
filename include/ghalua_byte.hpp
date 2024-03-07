@@ -21,6 +21,7 @@ public:
 
     bool operator == (Byte const& num) const noexcept;
     Byte operator +  (Byte const& num) const noexcept;
+    Byte operator -  (Byte const& num) = delete;
     Byte operator *  (Byte const& num) const noexcept;
     Byte operator /  (Byte const& num) const noexcept;
 
