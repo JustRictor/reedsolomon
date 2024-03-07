@@ -2,6 +2,7 @@
 #define __GHALUA_BYTE_HPP_
 
 #include <cstdint>
+#include <stdexcept>
 #include "ghalua_math.hpp"
 
 namespace Gf
@@ -23,9 +24,9 @@ public:
     Byte operator +  (Byte const& num) const noexcept;
     Byte operator -  (Byte const& num) = delete;
     Byte operator *  (Byte const& num) const noexcept;
-    Byte operator /  (Byte const& num) const noexcept;
+    Byte operator /  (Byte const& num) const;
 
-    Byte pow(uint8_t val) const noexcept;
+    Byte pow(uint8_t num) const noexcept;
 
 private:
 };//Byte

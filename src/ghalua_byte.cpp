@@ -16,12 +16,25 @@ Gf::Byte Gf::Byte::operator +(const Byte &num) const noexcept
 
 Gf::Byte Gf::Byte::operator *(const Byte &num) const noexcept
 {
-    //\todo fixme
-    return 0;
+    return pow2table[
+            ( log2table[this->value] + log2table[num.value] ) % 255
+            ];
 }
 
-Gf::Byte Gf::Byte::operator /(const Byte &num) const noexcept
+Gf::Byte Gf::Byte::operator /(const Byte &num) const
 {
-    //\todo fixme
-    return 0;
+    if(this->value == 0) return 0;
+    if(num.value == 0) throw std::invalid_argument("division by 0");
+    return pow2table[
+            ( log2table[this->value] - log2table[num.value] ) % 255
+            ];
+}
+
+Gf::Byte Gf::Byte::pow(uint8_t num) const noexcept
+{
+    if(this->value == 0) return 0;
+    if(num == 0) return 1;
+    return pow2table[
+            log2table[this->value] * num % 255
+            ];
 }
