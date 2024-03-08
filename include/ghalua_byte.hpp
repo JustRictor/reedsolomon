@@ -3,6 +3,9 @@
 
 #include <cstdint>
 #include <stdexcept>
+#include <iostream>
+#include <iomanip>
+
 #include "ghalua_math.hpp"
 
 namespace Gf
@@ -22,11 +25,20 @@ public:
 
     bool operator == (Byte const& num) const noexcept;
     Byte operator +  (Byte const& num) const noexcept;
-    Byte operator -  (Byte const& num) = delete;
     Byte operator *  (Byte const& num) const noexcept;
     Byte operator /  (Byte const& num) const;
 
+    void operator += (Byte const& num) noexcept;
+
     Byte pow(uint8_t num) const noexcept;
+
+    friend std::ostream& operator << (std::ostream& stream, Byte const& byte)
+    {
+        stream << std::setfill('0') << std::setw(2)
+               << std::hex << std::uppercase
+               << static_cast<int>(byte.value);
+        return stream;
+    }
 
 private:
 };//Byte

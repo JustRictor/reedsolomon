@@ -1,12 +1,17 @@
 #include <iostream>
-#include "ghalua_math.hpp"
+#include "ghalua_byte.hpp"
+#include "ghalua_poly.hpp"
 
 
 
 int main()
 {
-    uint8_t a = 100;
-    uint8_t b = 100;
-    std::cout << (int)(a*b % 255);
+    Gf::Poly p1({3,8,11,7});
+    Gf::Poly p2({19,0,6});
+    Gf::Poly p3 = p1+p2;
+    for(Gf::Byte const& b : p3)
+    {
+        std::cout << b << " ";
+    }
     return 0;
 }

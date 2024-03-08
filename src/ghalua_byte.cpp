@@ -30,6 +30,11 @@ Gf::Byte Gf::Byte::operator /(const Byte &num) const
             ];
 }
 
+void Gf::Byte::operator +=(const Byte &num) noexcept
+{
+    value ^= num.value;
+}
+
 Gf::Byte Gf::Byte::pow(uint8_t num) const noexcept
 {
     if(this->value == 0) return 0;
