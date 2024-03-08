@@ -1,5 +1,9 @@
 #include "ghalua_poly.hpp"
 
+Gf::Poly::Poly()
+    : std::vector<Byte>()
+{}
+
 Gf::Poly::Poly(const std::vector<Byte> &p)
     : std::vector<Byte>(p)
 {}
@@ -20,7 +24,16 @@ Gf::Poly Gf::Poly::operator +(const Poly &poly) const noexcept
 
 Gf::Poly Gf::Poly::operator *(const Poly &poly) const
 {
-    throw std::logic_error("not implemented");
+    Poly returnValue{};
+    returnValue.resize(this->size() + poly.size() - 1, 0);
+    for(size_t i = 0; i < this->size(); i++)
+    {
+        for(size_t j = 0; j < poly.size(); j++)
+        {
+            returnValue[i+j] += (*this)[i] * poly[j];
+        }
+    }
+    return returnValue;
 }
 
 Gf::Poly Gf::Poly::operator /(const Poly &poly) const

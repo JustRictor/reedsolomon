@@ -15,6 +15,7 @@ namespace Gf
 class Poly : public std::vector<Byte>
 {
 public:
+    Poly();
     Poly(std::vector<Byte> const& p);
     Poly(Poly const& other);
     ~Poly() = default;

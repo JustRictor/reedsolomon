@@ -43,3 +43,11 @@ Gf::Byte Gf::Byte::pow(uint8_t num) const noexcept
             log2table[this->value] * num % 255
             ];
 }
+
+std::ostream & Gf::operator <<(std::ostream &stream, const Gf::Byte &byte)
+{
+    stream << std::setfill('0') << std::setw(2)
+           << std::hex << std::uppercase
+           << static_cast<int>(byte.value);
+    return stream;
+}

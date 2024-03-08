@@ -32,13 +32,7 @@ public:
 
     Byte pow(uint8_t num) const noexcept;
 
-    friend std::ostream& operator << (std::ostream& stream, Byte const& byte)
-    {
-        stream << std::setfill('0') << std::setw(2)
-               << std::hex << std::uppercase
-               << static_cast<int>(byte.value);
-        return stream;
-    }
+    friend std::ostream& operator << (std::ostream& stream, Byte const& byte);
 
 private:
 };//Byte
