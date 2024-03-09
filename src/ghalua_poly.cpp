@@ -38,7 +38,7 @@ void Gf::Poly::operator +=(const Poly &poly) noexcept
                    );
 }
 
-Gf::Poly Gf::Poly::operator *(const Poly &poly) const
+Gf::Poly Gf::Poly::operator *(const Poly &poly) const noexcept
 {
     Poly returnValue{};
     returnValue.resize(this->size() + poly.size() - 1, 0);
@@ -75,6 +75,50 @@ Gf::Poly Gf::Poly::operator /(const Poly &divisor) const
         majorDividendIndex = findMajor(dividend);
     }
     return dividend;
+}
+
+Gf::Poly Gf::Poly::operator >>(size_t shiftCount) const noexcept
+{
+    if(shiftCount == 0)
+        return *this;
+    Poly returnValue(*this);
+    if( static_cast<size_t>(-1) - shiftCount < returnValue.size() )
+        returnValue.erase(returnValue.cend() - (returnValue.size() + shiftCount),
+                          returnValue.cend()
+                          );
+    returnValue.insert(returnValue.cbegin(),shiftCount,0);
+    return returnValue;
+}
+
+void Gf::Poly::operator >>=(size_t shiftCount) noexcept
+{
+    if(shiftCount == 0)
+        return;
+    if( static_cast<size_t>(-1) - shiftCount < this->size() )
+        this->erase(this->cend() - (this->size() + shiftCount),
+                    this->cend()
+                    );
+    this->insert(this->cbegin(), shiftCount, 0);
+}
+
+Gf::Poly Gf::Poly::operator <<(size_t shiftCount) const noexcept
+{
+    if(shiftCount == 0)
+        return *this;
+    if(shiftCount > this->size())
+        return Poly(std::vector<Byte>{});
+    Poly returnValue(*this);
+    returnValue.erase(returnValue.cbegin(), returnValue.cbegin() + shiftCount);
+    return returnValue;
+}
+
+void Gf::Poly::operator <<=(size_t shiftCount) noexcept
+{
+    if(shiftCount == 0)
+        return;
+    if(shiftCount > this->size())
+        this->erase(this->cbegin());
+    this->erase(this->cbegin(),this->cbegin() + shiftCount);
 }
 
 std::ostream &Gf::operator <<(std::ostream &stream, const Poly &_poly)

@@ -3,9 +3,8 @@
 
 #include <vector>
 #include <algorithm>
-#include <numeric>
-#include <iostream>
-#include <iterator>
+#include <iostream> //cout
+#include <iterator> //ostream_iterator
 
 #include "ghalua_byte.hpp"
 
@@ -25,8 +24,13 @@ public:
 
     Poly operator + (Poly const& poly) const noexcept;
     void operator +=(Poly const& poly) noexcept;
-    Poly operator * (Poly const& poly) const;
+    Poly operator * (Poly const& poly) const noexcept;
     Poly operator / (Poly const& divisor) const;
+
+    Poly operator >> (size_t shiftCount) const noexcept;
+    void operator >>=(size_t shiftCount) noexcept;
+    Poly operator << (size_t shiftCount) const noexcept;
+    void operator <<=(size_t shiftCount) noexcept;
 
     friend std::ostream& operator << (std::ostream& stream, Poly const& _poly);
 };//Poly

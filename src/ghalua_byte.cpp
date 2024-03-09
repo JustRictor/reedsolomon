@@ -17,6 +17,11 @@ bool Gf::Byte::operator !=(const Byte &num) const noexcept
 Gf::Byte Gf::Byte::operator +(const Byte &num) const noexcept
 { return value ^ num.value;  }
 
+void Gf::Byte::operator +=(const Byte &num) noexcept
+{
+    value ^= num.value;
+}
+
 Gf::Byte Gf::Byte::operator *(const Byte &num) const noexcept
 {
     if ( num.value   == 0 ) return 0;
@@ -40,11 +45,6 @@ Gf::Byte Gf::Byte::operator /(const Byte &num) const
         return pow2table[
                 static_cast<uint8_t>( log2table[this->value] - log2table[num.value] ) - 1
                 ];
-}
-
-void Gf::Byte::operator +=(const Byte &num) noexcept
-{
-    value ^= num.value;
 }
 
 Gf::Byte Gf::Byte::pow(uint8_t num) const noexcept
