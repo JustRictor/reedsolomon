@@ -1,7 +1,7 @@
 #ifndef __ENCODER_HPP_
 #define __ENCODER_HPP_
 
-namespace Rs
+namespace rs
 {
 
 

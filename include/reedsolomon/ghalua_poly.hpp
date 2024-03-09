@@ -8,7 +8,7 @@
 
 #include "reedsolomon/ghalua_byte.hpp"
 
-namespace Gf
+namespace gf
 {
 
 

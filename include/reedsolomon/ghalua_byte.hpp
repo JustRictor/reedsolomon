@@ -7,7 +7,7 @@
 
 #include "reedsolomon/ghalua_math.hpp"
 
-namespace Gf
+namespace gf
 {
 
 

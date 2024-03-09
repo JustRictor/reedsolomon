@@ -1,24 +1,24 @@
 #include "reedsolomon/ghalua_poly.hpp"
 
-Gf::Poly::Poly()
+gf::Poly::Poly()
     : std::vector<Byte>()
 {}
 
-Gf::Poly::Poly(const std::vector<Byte> &p)
+gf::Poly::Poly(const std::vector<Byte> &p)
     : std::vector<Byte>(p)
 {}
 
-Gf::Poly::Poly(const Poly &other)
+gf::Poly::Poly(const Poly &other)
     : std::vector<Byte>(other)
 {}
 
-Gf::Poly::Poly(const Byte &num, size_t degree)
+gf::Poly::Poly(const Byte &num, size_t degree)
     : std::vector<Byte>(degree + 1)
 {
     (*this)[degree] = num;
 }
 
-Gf::Poly Gf::Poly::operator +(const Poly &poly) const noexcept
+gf::Poly gf::Poly::operator +(const Poly &poly) const noexcept
 {
     Poly returnValue(*this);
     returnValue.resize(std::max(poly.size(),this->size()),0);
@@ -29,7 +29,7 @@ Gf::Poly Gf::Poly::operator +(const Poly &poly) const noexcept
     return returnValue;
 }
 
-void Gf::Poly::operator +=(const Poly &poly) noexcept
+void gf::Poly::operator +=(const Poly &poly) noexcept
 {
     this->resize(std::max(poly.size(),this->size()),0);
     std::transform(poly.cbegin(),poly.cend(),
@@ -38,7 +38,7 @@ void Gf::Poly::operator +=(const Poly &poly) noexcept
                    );
 }
 
-Gf::Poly Gf::Poly::operator *(const Poly &poly) const noexcept
+gf::Poly gf::Poly::operator *(const Poly &poly) const noexcept
 {
     Poly returnValue{};
     returnValue.resize(this->size() + poly.size() - 1, 0);
@@ -52,7 +52,7 @@ Gf::Poly Gf::Poly::operator *(const Poly &poly) const noexcept
     return returnValue;
 }
 
-Gf::Poly Gf::Poly::operator /(const Poly &divisor) const
+gf::Poly gf::Poly::operator /(const Poly &divisor) const
 {
     Poly dividend(*this);
 
@@ -77,7 +77,7 @@ Gf::Poly Gf::Poly::operator /(const Poly &divisor) const
     return dividend;
 }
 
-Gf::Poly Gf::Poly::operator >>(size_t shiftCount) const noexcept
+gf::Poly gf::Poly::operator >>(size_t shiftCount) const noexcept
 {
     if(shiftCount == 0)
         return *this;
@@ -90,7 +90,7 @@ Gf::Poly Gf::Poly::operator >>(size_t shiftCount) const noexcept
     return returnValue;
 }
 
-void Gf::Poly::operator >>=(size_t shiftCount) noexcept
+void gf::Poly::operator >>=(size_t shiftCount) noexcept
 {
     if(shiftCount == 0)
         return;
@@ -101,7 +101,7 @@ void Gf::Poly::operator >>=(size_t shiftCount) noexcept
     this->insert(this->cbegin(), shiftCount, 0);
 }
 
-Gf::Poly Gf::Poly::operator <<(size_t shiftCount) const noexcept
+gf::Poly gf::Poly::operator <<(size_t shiftCount) const noexcept
 {
     if(shiftCount == 0)
         return *this;
@@ -112,7 +112,7 @@ Gf::Poly Gf::Poly::operator <<(size_t shiftCount) const noexcept
     return returnValue;
 }
 
-void Gf::Poly::operator <<=(size_t shiftCount) noexcept
+void gf::Poly::operator <<=(size_t shiftCount) noexcept
 {
     if(shiftCount == 0)
         return;
@@ -121,10 +121,10 @@ void Gf::Poly::operator <<=(size_t shiftCount) noexcept
     this->erase(this->cbegin(),this->cbegin() + shiftCount);
 }
 
-std::ostream &Gf::operator <<(std::ostream &stream, const Poly &_poly)
+std::ostream &gf::operator <<(std::ostream &stream, const Poly &_poly)
 {
     std::copy(_poly.cbegin(),_poly.cend(),
-              std::ostream_iterator<Gf::Byte>(std::cout," ")
+              std::ostream_iterator<gf::Byte>(std::cout," ")
               );
     return stream;
 }

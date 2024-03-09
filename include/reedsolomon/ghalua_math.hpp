@@ -5,7 +5,7 @@
 #include <string> //<size_t declaration
 #include <array>
 
-namespace Gf
+namespace gf
 {
 /**
  * @brief Функция нахождения индекса старшего бита числа
@@ -72,7 +72,7 @@ constexpr uint8_t pow(uint8_t const& num, uint8_t n)
     if(n == 1) return num;
     uint8_t retValue = num;
     while(n-- > 1)
-        retValue = Gf::mult(retValue,num);
+        retValue = gf::mult(retValue,num);
     return retValue;
 }
 
@@ -85,7 +85,7 @@ constexpr std::array<uint8_t, 256> genPow2Table_()
 {
     std::array<uint8_t, 256> table{1,2};
     for(size_t i = 2; i < 256; i++)
-        table[i] = Gf::mult(table[i-1],2);
+        table[i] = gf::mult(table[i-1],2);
     return table;
 }
 
