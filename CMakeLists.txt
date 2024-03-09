@@ -13,11 +13,13 @@ set(HEADERS_SOLOMONLIB
         include/reedsolomon/ghalua_math.hpp
         include/reedsolomon/ghalua_byte.hpp
         include/reedsolomon/ghalua_poly.hpp
+        include/reedsolomon/encoder.hpp
     )
 
 set(SOURCE_SOLOMONLIB
         src/ghalua_byte.cpp
         src/ghalua_poly.cpp
+        src/encoder.cpp
     )
 
 add_library(reedsolomon STATIC ${HEADERS_SOLOMONLIB} ${SOURCE_SOLOMONLIB})
