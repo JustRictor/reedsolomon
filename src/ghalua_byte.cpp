@@ -11,11 +11,16 @@ Gf::Byte::Byte(uint8_t val)
 bool Gf::Byte::operator ==(const Byte &num) const noexcept
 { return value == num.value; }
 
+bool Gf::Byte::operator !=(const Byte &num) const noexcept
+{ return value != num.value; }
+
 Gf::Byte Gf::Byte::operator +(const Byte &num) const noexcept
 { return value ^ num.value;  }
 
 Gf::Byte Gf::Byte::operator *(const Byte &num) const noexcept
 {
+    if ( num.value   == 0 ) return 0;
+    if ( this->value == 0 ) return 0;
     return pow2table[
             ( log2table[this->value] + log2table[num.value] ) % 255
             ];
@@ -23,11 +28,18 @@ Gf::Byte Gf::Byte::operator *(const Byte &num) const noexcept
 
 Gf::Byte Gf::Byte::operator /(const Byte &num) const
 {
-    if(this->value == 0) return 0;
-    if(num.value == 0) throw std::invalid_argument("division by 0");
-    return pow2table[
-            ( log2table[this->value] - log2table[num.value] ) % 255
-            ];
+    if ( this->value == 0 ) return 0;
+    if ( num.value   == 0 ) throw std::invalid_argument("division by 0");
+
+    ///\note определенно есть более правильное решение
+    if (log2table[this->value] > log2table[num.value])
+        return pow2table[
+                static_cast<uint8_t>( log2table[this->value] - log2table[num.value] )
+                ];
+    else
+        return pow2table[
+                static_cast<uint8_t>( log2table[this->value] - log2table[num.value] ) - 1
+                ];
 }
 
 void Gf::Byte::operator +=(const Byte &num) noexcept
@@ -44,10 +56,8 @@ Gf::Byte Gf::Byte::pow(uint8_t num) const noexcept
             ];
 }
 
-std::ostream & Gf::operator <<(std::ostream &stream, const Gf::Byte &byte)
+std::ostream & Gf::operator <<(std::ostream &stream, const Byte &_byte)
 {
-    stream << std::setfill('0') << std::setw(2)
-           << std::hex << std::uppercase
-           << static_cast<int>(byte.value);
+    stream << static_cast<int>(_byte.value);
     return stream;
 }

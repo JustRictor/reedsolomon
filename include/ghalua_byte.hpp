@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <stdexcept>
 #include <iostream>
-#include <iomanip>
 
 #include "ghalua_math.hpp"
 
@@ -24,6 +23,8 @@ public:
     Byte(uint8_t val);
 
     bool operator == (Byte const& num) const noexcept;
+    bool operator != (Byte const& num) const noexcept;
+
     Byte operator +  (Byte const& num) const noexcept;
     Byte operator *  (Byte const& num) const noexcept;
     Byte operator /  (Byte const& num) const;
@@ -32,7 +33,7 @@ public:
 
     Byte pow(uint8_t num) const noexcept;
 
-    friend std::ostream& operator << (std::ostream& stream, Byte const& byte);
+    friend std::ostream& operator << (std::ostream& stream, Byte const& _byte);
 
 private:
 };//Byte
