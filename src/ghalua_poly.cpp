@@ -1,4 +1,4 @@
-#include "ghalua_poly.hpp"
+#include "reedsolomon/ghalua_poly.hpp"
 
 Gf::Poly::Poly()
     : std::vector<Byte>()

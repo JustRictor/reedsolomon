@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "ghalua_math.hpp"
+#include "reedsolomon/ghalua_math.hpp"
 
 namespace Gf
 {

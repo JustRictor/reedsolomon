@@ -6,7 +6,7 @@
 #include <iostream> //cout
 #include <iterator> //ostream_iterator
 
-#include "ghalua_byte.hpp"
+#include "reedsolomon/ghalua_byte.hpp"
 
 namespace Gf
 {

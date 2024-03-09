@@ -1,4 +1,4 @@
-#include "ghalua_byte.hpp"
+#include "reedsolomon/ghalua_byte.hpp"
 
 Gf::Byte::Byte()
     : value(0)

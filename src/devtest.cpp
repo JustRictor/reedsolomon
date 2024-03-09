@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
-#include "ghalua_byte.hpp"
-#include "ghalua_poly.hpp"
+#include "reedsolomon/ghalua_byte.hpp"
+#include "reedsolomon/ghalua_poly.hpp"
 
 
 int main()
