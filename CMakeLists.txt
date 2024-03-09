@@ -9,6 +9,7 @@ add_definitions(-D__GFPoly_=285)
 add_definitions(-D__ENABLE_TESTS_)
 
 set(HEADERS_SOLOMONLIB
+        include/ghalua_math.hpp
         include/ghalua_byte.hpp
         include/ghalua_poly.hpp
     )
@@ -20,14 +21,6 @@ set(SOURCE_SOLOMONLIB
 
 add_library(reedsolomon_code STATIC ${HEADERS_SOLOMONLIB} ${SOURCE_SOLOMONLIB})
 
-set(HEADERS_MATHLIB
-        include/ghalua_math.hpp
-    )
-set(SOURCES_MATHLIB
-        src/ghalua_math_tests.cpp
-    )
-
-add_library(ghalua_math STATIC ${HEADERS_MATHLIB} ${SOURCES_MATHLIB})
 
 add_executable(reedsolomon_devtest src/devtest.cpp)
-target_link_libraries(reedsolomon_devtest reedsolomon_code ghalua_math)
+target_link_libraries(reedsolomon_devtest reedsolomon_code)

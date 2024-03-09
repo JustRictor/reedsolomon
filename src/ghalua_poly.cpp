@@ -24,7 +24,8 @@ Gf::Poly Gf::Poly::operator +(const Poly &poly) const noexcept
     returnValue.resize(std::max(poly.size(),this->size()),0);
     std::transform(poly.cbegin(),poly.cend(),
                    returnValue.cbegin(),returnValue.begin(),
-                   std::plus<>());
+                   std::plus<>()
+                   );
     return returnValue;
 }
 
@@ -33,7 +34,8 @@ void Gf::Poly::operator +=(const Poly &poly) noexcept
     this->resize(std::max(poly.size(),this->size()),0);
     std::transform(poly.cbegin(),poly.cend(),
                    this->cbegin(),this->begin(),
-                   std::plus<>());
+                   std::plus<>()
+                   );
 }
 
 Gf::Poly Gf::Poly::operator *(const Poly &poly) const
