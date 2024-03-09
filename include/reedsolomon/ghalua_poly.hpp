@@ -25,6 +25,7 @@ public:
     Poly operator + (Poly const& poly) const noexcept;
     void operator +=(Poly const& poly) noexcept;
     Poly operator * (Poly const& poly) const noexcept;
+    void operator *=(Poly const& poly) noexcept;
     Poly operator / (Poly const& divisor) const;
 
     Poly operator >> (size_t shiftCount) const noexcept;

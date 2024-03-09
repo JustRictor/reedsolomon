@@ -52,6 +52,20 @@ gf::Poly gf::Poly::operator *(const Poly &poly) const noexcept
     return returnValue;
 }
 
+void gf::Poly::operator *=(const Poly &poly) noexcept
+{
+    Poly result{};
+    result.resize(this->size() + poly.size() - 1, 0);
+    for(size_t i = 0; i < this->size(); i++)
+    {
+        for(size_t j = 0; j < poly.size(); j++)
+        {
+            result[i+j] += (*this)[i] * poly[j];
+        }
+    }
+    (*this) = result;
+}
+
 gf::Poly gf::Poly::operator /(const Poly &divisor) const
 {
     Poly dividend(*this);
