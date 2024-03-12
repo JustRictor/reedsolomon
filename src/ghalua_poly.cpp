@@ -110,6 +110,14 @@ gf::Byte gf::Poly::operator()(const Byte &x) const noexcept
     });
 }
 
+gf::Poly gf::Poly::der() const noexcept
+{//\todo add tests
+    Poly returnValue(*this << 1);
+    for(size_t i = 1; i < returnValue.size(); i += 2)
+        returnValue[i] = 0;
+    return returnValue;
+}
+
 gf::Poly gf::Poly::operator >>(size_t shiftCount) const noexcept
 {
     if(shiftCount == 0)

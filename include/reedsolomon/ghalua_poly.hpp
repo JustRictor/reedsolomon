@@ -32,6 +32,7 @@ public:
     Poly operator / (Poly const& divisor) const;
 
     Byte operator()(Byte const& x) const noexcept;
+    Poly der() const noexcept;
 
     Poly operator >> (size_t shiftCount) const noexcept;
     void operator >>=(size_t shiftCount) noexcept;

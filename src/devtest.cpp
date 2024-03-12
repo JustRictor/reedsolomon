@@ -25,9 +25,8 @@ struct DisplayInHex
 
 int main()
 {
-    gf::Poly poly({0x44, 0x4F, 0x4E, 0x27, 0x54, 0x20, 0x50, 0x41, 0x4E, 0x49, 0x43});
+    gf::Poly poly({0x01, 0x2D, 0xA5, 0xC6, 0x8C, 0xDF});
     rs::Encoder encoder;
-    poly = encoder.encode(poly);
-    std::cout << DisplayInHex{encoder.decode(poly)};
+    std::cout << DisplayInHex{poly.der()};
     return 0;
 }
