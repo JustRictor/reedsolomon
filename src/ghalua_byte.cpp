@@ -54,6 +54,11 @@ gf::Byte gf::Byte::pow(uint8_t num) const noexcept
             ];
 }
 
+gf::Byte gf::Byte::log() const noexcept
+{
+    return log2table[value];
+}
+
 std::ostream & gf::operator <<(std::ostream &stream, const Byte &_byte)
 {
     stream << static_cast<int>(_byte.value);

@@ -33,6 +33,7 @@ public:
     explicit operator uint8_t() const noexcept;
 
     Byte pow(uint8_t num) const noexcept;
+    Byte log() const noexcept;
 
     friend std::ostream& operator << (std::ostream& stream, Byte const& _byte);
 

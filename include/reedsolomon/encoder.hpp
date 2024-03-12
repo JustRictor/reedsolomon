@@ -18,15 +18,17 @@ private:
     static inline std::unordered_map<size_t, gf::Poly> polyGenerators{};
 
     gf::Poly polySyn{};
+    gf::Poly  errPos{};
     gf::Poly polyLoc{};
     gf::Poly polyErr{};
 public:
     Encoder(size_t _redundantCharCount = 4);
     gf::Poly encode(gf::Poly const& poly) const;
-    gf::Poly decode(gf::Poly const& poly) const;
+    gf::Poly decode(gf::Poly const& poly);
 
 private:
     gf::Poly calcPolySyn(gf::Poly const& poly) const noexcept;
+    gf::Poly calcErrPos() const;
     gf::Poly calcPolyLoc(gf::Poly const& errPos) const noexcept;
     gf::Poly calcPolyErr() const noexcept;
     gf::Poly calcMagnitudes(gf::Poly const& errPos) const;

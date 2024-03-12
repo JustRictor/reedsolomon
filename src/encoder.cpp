@@ -26,12 +26,15 @@ gf::Poly rs::Encoder::encode(const gf::Poly &poly) const
             + (poly >> redundantCharCount) / polyGenerators[redundantCharCount];
 }
 
-gf::Poly rs::Encoder::decode(const gf::Poly &poly) const
+gf::Poly rs::Encoder::decode(const gf::Poly &poly)
 {
     gf::Poly polySyn = calcPolySyn(poly);
     if( polySyn == gf::Poly( std::vector<gf::Byte>(redundantCharCount,0) ) )
         return poly << redundantCharCount;
-    throw std::logic_error("not implemented");
+    gf::Poly errPos = calcErrPos();
+    polyLoc = calcPolyLoc(errPos);
+    polyErr = calcPolyErr();
+    return poly + calcMagnitudes(errPos);
 }
 
 gf::Poly rs::Encoder::calcPolySyn(const gf::Poly &poly) const noexcept
@@ -41,6 +44,41 @@ gf::Poly rs::Encoder::calcPolySyn(const gf::Poly &poly) const noexcept
     for(size_t i = 0; i < redundantCharCount; i++)
         polySyn.push_back(poly(_x));
     return polySyn;
+}
+
+gf::Poly rs::Encoder::calcErrPos() const
+{
+    gf::Poly locator({1});
+    gf::Poly locatorPrev(locator);
+
+    uint8_t syndShift = 0;
+    for(size_t i = 0; i < redundantCharCount; i++)
+    {
+        uint8_t k = i + syndShift;
+        gf::Byte delta = polySyn[k];
+        for(size_t j = 1; j < locator.size(); j++)
+        {
+            delta += locator[j] * polySyn[k - j];
+        }
+        locatorPrev >>= 1;
+        if (delta != gf::Byte(0))
+        {
+            gf::Poly locatorNew = locatorPrev * gf::Poly({delta});
+            ///\todo add gf::Byte::inverse [](){1/2**this->val}
+            locatorPrev = locator * gf::Poly({ gf::Byte(1) / gf::Byte(2).pow((uint8_t)delta)});
+            locator = locatorNew;
+        }
+        locator += locatorPrev * gf::Poly({delta});
+    }
+    gf::Poly errPos{};
+    for(uint16_t root = 1; root < 256; root++)
+    {
+        if(locator(root) != 0)
+            continue;
+
+        errPos.push_back(gf::Byte(1 / root).log());
+    }
+    return errPos;
 }
 
 gf::Poly rs::Encoder::calcPolyLoc(const gf::Poly &errPos) const noexcept
