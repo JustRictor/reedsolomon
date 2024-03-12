@@ -28,19 +28,19 @@ gf::Poly rs::Encoder::encode(const gf::Poly &poly) const
 
 gf::Poly rs::Encoder::decode(const gf::Poly &poly) const
 {
-    gf::Poly syndromes(getSyndromes(poly));
-    if( syndromes == gf::Poly( std::vector<gf::Byte>(redundantCharCount,0) ) )
+    gf::Poly polySyn(getPolySyn(poly));
+    if( polySyn == gf::Poly( std::vector<gf::Byte>(redundantCharCount,0) ) )
         return poly << redundantCharCount;
     throw std::logic_error("not implemented");
 }
 
-gf::Poly rs::Encoder::getSyndromes(const gf::Poly &poly) const noexcept
+gf::Poly rs::Encoder::getPolySyn(const gf::Poly &poly) const noexcept
 {
-    gf::Poly syndromes{};
+    gf::Poly polySyn{};
     gf::Byte _x{2};
     for(size_t i = 0; i < redundantCharCount; i++)
-        syndromes.push_back(poly(_x));
-    return syndromes;
+        polySyn.push_back(poly(_x));
+    return polySyn;
 }
 
 gf::Poly rs::Encoder::getPolyLoc(const gf::Poly &errPos) const noexcept
@@ -51,4 +51,12 @@ gf::Poly rs::Encoder::getPolyLoc(const gf::Poly &errPos) const noexcept
     for(auto it = errPos.cbegin() + 1; it != errPos.cend(); it++)
         polyLoc *= gf::Poly( { 1, gf::Byte(2).pow(static_cast<uint8_t>(*it)) } );
     return polyLoc;
+}
+
+gf::Poly rs::Encoder::getPolyErr(const gf::Poly &polySyn, const gf::Poly &polyLoc) const noexcept
+{
+    gf::Poly polyErr = polySyn * polyLoc;
+    return std::vector<gf::Byte>(polyErr.cbegin(),
+                                 polyErr.cbegin() + redundantCharCount
+                                 );
 }

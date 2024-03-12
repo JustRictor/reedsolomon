@@ -23,8 +23,11 @@ public:
     gf::Poly decode(gf::Poly const& poly) const;
 
 private:
-    gf::Poly getSyndromes(gf::Poly const& poly) const noexcept;
+    gf::Poly getPolySyn(gf::Poly const& poly) const noexcept;
     gf::Poly getPolyLoc(gf::Poly const& errPos) const noexcept;
+    gf::Poly getPolyErr(gf::Poly const& polySyn,
+                        gf::Poly const& polyLoc
+                        ) const noexcept;
 };//Encoder
 
 
