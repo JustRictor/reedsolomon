@@ -15,7 +15,7 @@ class Encoder
 {
 private:
     size_t const redundantCharCount;
-    std::unordered_map<size_t, gf::Poly> polyGenerators;
+    static inline std::unordered_map<size_t, gf::Poly> polyGenerators{};
 
 public:
     Encoder(size_t _redundantCharCount = 4);

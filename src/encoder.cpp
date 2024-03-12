@@ -4,7 +4,6 @@ rs::Encoder::Encoder(size_t _redundantCharCount)
     : redundantCharCount(_redundantCharCount == 0 ? 1
                                                   : _redundantCharCount
                                                     )
-    , polyGenerators()
 {
     if(_redundantCharCount == 0)
     {//должно быть другое разрешение ошибки
