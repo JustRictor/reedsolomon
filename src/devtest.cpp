@@ -27,6 +27,7 @@ int main()
 {
     gf::Poly poly({0x44, 0x4F, 0x4E, 0x27, 0x54, 0x20, 0x50, 0x41, 0x4E, 0x49, 0x43});
     rs::Encoder encoder;
-    std::cout << DisplayInHex{encoder.encode(poly)};
+    poly = encoder.encode(poly);
+    std::cout << DisplayInHex{encoder.decode(poly)};
     return 0;
 }

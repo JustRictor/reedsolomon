@@ -19,7 +19,11 @@ private:
 
 public:
     Encoder(size_t _redundantCharCount = 4);
-    gf::Poly encode(gf::Poly const& poly) noexcept;
+    gf::Poly encode(gf::Poly const& poly) const;
+    gf::Poly decode(gf::Poly const& poly) const;
+
+private:
+    gf::Poly getSyndromes(gf::Poly const& poly) const noexcept;
 };//Encoder
 
 
