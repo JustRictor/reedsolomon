@@ -17,17 +17,19 @@ private:
     size_t const redundantCharCount;
     static inline std::unordered_map<size_t, gf::Poly> polyGenerators{};
 
+    gf::Poly polySyn{};
+    gf::Poly polyLoc{};
+    gf::Poly polyErr{};
 public:
     Encoder(size_t _redundantCharCount = 4);
     gf::Poly encode(gf::Poly const& poly) const;
     gf::Poly decode(gf::Poly const& poly) const;
 
 private:
-    gf::Poly getPolySyn(gf::Poly const& poly) const noexcept;
-    gf::Poly getPolyLoc(gf::Poly const& errPos) const noexcept;
-    gf::Poly getPolyErr(gf::Poly const& polySyn,
-                        gf::Poly const& polyLoc
-                        ) const noexcept;
+    gf::Poly calcPolySyn(gf::Poly const& poly) const noexcept;
+    gf::Poly calcPolyLoc(gf::Poly const& errPos) const noexcept;
+    gf::Poly calcPolyErr() const noexcept;
+    gf::Poly calcMagnitudes(gf::Poly const& errPos) const;
 };//Encoder
 
 

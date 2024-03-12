@@ -1,4 +1,4 @@
-#include "reedsolomon/encoder.hpp"
+﻿#include "reedsolomon/encoder.hpp"
 
 rs::Encoder::Encoder(size_t _redundantCharCount)
     : redundantCharCount(_redundantCharCount == 0 ? 1
@@ -28,13 +28,13 @@ gf::Poly rs::Encoder::encode(const gf::Poly &poly) const
 
 gf::Poly rs::Encoder::decode(const gf::Poly &poly) const
 {
-    gf::Poly polySyn(getPolySyn(poly));
+    gf::Poly polySyn = calcPolySyn(poly);
     if( polySyn == gf::Poly( std::vector<gf::Byte>(redundantCharCount,0) ) )
         return poly << redundantCharCount;
     throw std::logic_error("not implemented");
 }
 
-gf::Poly rs::Encoder::getPolySyn(const gf::Poly &poly) const noexcept
+gf::Poly rs::Encoder::calcPolySyn(const gf::Poly &poly) const noexcept
 {
     gf::Poly polySyn{};
     gf::Byte _x{2};
@@ -43,7 +43,7 @@ gf::Poly rs::Encoder::getPolySyn(const gf::Poly &poly) const noexcept
     return polySyn;
 }
 
-gf::Poly rs::Encoder::getPolyLoc(const gf::Poly &errPos) const noexcept
+gf::Poly rs::Encoder::calcPolyLoc(const gf::Poly &errPos) const noexcept
 {
     gf::Poly polyLoc(
                 { 1, gf::Byte(2).pow(static_cast<uint8_t>(errPos[0])) }
@@ -53,10 +53,27 @@ gf::Poly rs::Encoder::getPolyLoc(const gf::Poly &errPos) const noexcept
     return polyLoc;
 }
 
-gf::Poly rs::Encoder::getPolyErr(const gf::Poly &polySyn, const gf::Poly &polyLoc) const noexcept
+gf::Poly rs::Encoder::calcPolyErr() const noexcept
 {
     gf::Poly polyErr = polySyn * polyLoc;
     return std::vector<gf::Byte>(polyErr.cbegin(),
                                  polyErr.cbegin() + redundantCharCount
                                  );
+}
+
+gf::Poly rs::Encoder::calcMagnitudes(const gf::Poly &errPos) const
+{
+    gf::Poly magnitudes(
+                std::vector<gf::Byte>(static_cast<uint8_t>(*(errPos.cend()-1)),0)
+                );
+    gf::Poly polyLocDer = polyLoc.der();
+    std::for_each(errPos.cbegin(),errPos.cend(),
+                  [this, &polyLocDer, &magnitudes](gf::Byte const& posErr)
+    {
+        gf::Byte x_inv = gf::Byte(1) / gf::Byte(2).pow(static_cast<uint8_t>(posErr));
+        gf::Byte W = this->polyErr(x_inv);
+        gf::Byte L = polyLocDer(x_inv);
+        magnitudes[static_cast<uint8_t>(posErr)] = W / L;
+    });
+    return magnitudes;
 }
