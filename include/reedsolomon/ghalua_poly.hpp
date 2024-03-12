@@ -16,10 +16,10 @@ namespace gf
 class Poly : public std::vector<Byte>
 {
 public:
-    Poly();
-    Poly(std::vector<Byte> const& p);
+    explicit Poly();
+    explicit Poly(std::vector<Byte> const& p);
     Poly(Poly const& other);
-    Poly(Byte const& num, size_t degree);
+    explicit Poly(Byte const& num, size_t degree);
     ~Poly() = default;
 
     Poly operator + (Poly const& poly) const noexcept;

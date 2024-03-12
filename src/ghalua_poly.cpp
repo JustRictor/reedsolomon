@@ -88,6 +88,11 @@ gf::Poly gf::Poly::operator /(const Poly &divisor) const
 
         majorDividendIndex = findMajor(dividend);
     }
+
+    for(auto it = dividend.end() - 1; it != dividend.begin(); it--)
+        if(*it == 0) dividend.erase(it);
+        else break;
+
     return dividend;
 }
 
