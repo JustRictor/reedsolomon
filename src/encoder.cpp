@@ -42,3 +42,13 @@ gf::Poly rs::Encoder::getSyndromes(const gf::Poly &poly) const noexcept
         syndromes.push_back(poly(_x));
     return syndromes;
 }
+
+gf::Poly rs::Encoder::getPolyLoc(const gf::Poly &errPos) const noexcept
+{
+    gf::Poly polyLoc(
+                { 1, gf::Byte(2).pow(static_cast<uint8_t>(errPos[0])) }
+                );
+    for(auto it = errPos.cbegin() + 1; it != errPos.cend(); it++)
+        polyLoc *= gf::Poly( { 1, gf::Byte(2).pow(static_cast<uint8_t>(*it)) } );
+    return polyLoc;
+}

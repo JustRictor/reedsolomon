@@ -30,6 +30,7 @@ public:
     Byte operator /  (Byte const& num) const;
 
     void operator += (Byte const& num) noexcept;
+    explicit operator uint8_t() const noexcept;
 
     Byte pow(uint8_t num) const noexcept;
 

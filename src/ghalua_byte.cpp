@@ -22,6 +22,11 @@ void gf::Byte::operator +=(const Byte &num) noexcept
     value ^= num.value;
 }
 
+gf::Byte::operator uint8_t() const noexcept
+{
+    return this->value;
+}
+
 gf::Byte gf::Byte::operator *(const Byte &num) const noexcept
 {
     if ( num.value   == 0 ) return 0;

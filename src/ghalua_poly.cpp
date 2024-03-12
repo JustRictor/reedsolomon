@@ -82,7 +82,7 @@ gf::Poly gf::Poly::operator /(const Poly &divisor) const
     size_t (*findMajor)(Poly const& _poly) = [](Poly const& _poly)
     {
         for(auto it = _poly.cend() - 1; it != _poly.cbegin(); it--)
-            if(*it != 0)
+            if(*it != gf::Byte(0))
                 return static_cast<size_t>(it - _poly.cbegin());
         return static_cast<size_t>(0);
     };

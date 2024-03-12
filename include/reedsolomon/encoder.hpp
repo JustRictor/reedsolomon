@@ -24,6 +24,7 @@ public:
 
 private:
     gf::Poly getSyndromes(gf::Poly const& poly) const noexcept;
+    gf::Poly getPolyLoc(gf::Poly const& errPos) const noexcept;
 };//Encoder
 
 
