@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <numeric> //accumulate
 #include <iostream> //cout
 #include <iterator> //ostream_iterator
 
@@ -20,13 +21,18 @@ public:
     explicit Poly(std::vector<Byte> const& p);
     Poly(Poly const& other);
     explicit Poly(Byte const& num, size_t degree);
+    Poly& operator=(Poly const& other);
     ~Poly() = default;
+
 
     Poly operator + (Poly const& poly) const noexcept;
     void operator +=(Poly const& poly) noexcept;
     Poly operator * (Poly const& poly) const noexcept;
     void operator *=(Poly const& poly) noexcept;
     Poly operator / (Poly const& divisor) const;
+
+    Byte operator()(Byte const& x) const noexcept;
+    Poly der() const noexcept;
 
     Poly operator >> (size_t shiftCount) const noexcept;
     void operator >>=(size_t shiftCount) noexcept;

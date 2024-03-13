@@ -18,6 +18,15 @@ gf::Poly::Poly(const Byte &num, size_t degree)
     (*this)[degree] = num;
 }
 
+gf::Poly& gf::Poly::operator=(const Poly &other)
+{
+    if(this == &other)
+        return *this;
+    this->clear();
+    std::copy(other.cbegin(),other.cend(),std::back_inserter(*this));
+    return *this;
+}
+
 gf::Poly gf::Poly::operator +(const Poly &poly) const noexcept
 {
     Poly returnValue(*this);
@@ -73,7 +82,7 @@ gf::Poly gf::Poly::operator /(const Poly &divisor) const
     size_t (*findMajor)(Poly const& _poly) = [](Poly const& _poly)
     {
         for(auto it = _poly.cend() - 1; it != _poly.cbegin(); it--)
-            if(*it != 0)
+            if(*it != gf::Byte(0))
                 return static_cast<size_t>(it - _poly.cbegin());
         return static_cast<size_t>(0);
     };
@@ -94,6 +103,24 @@ gf::Poly gf::Poly::operator /(const Poly &divisor) const
         else break;
 
     return dividend;
+}
+
+gf::Byte gf::Poly::operator()(const Byte &x) const noexcept
+{//\todo add tests
+    size_t xPow = 0;
+    return std::accumulate(this->cbegin(),this->cend(), Byte(0),
+                           [&x,&xPow](Byte const& sum, Byte const& val)
+    {
+        return sum + val * x.pow(xPow++);
+    });
+}
+
+gf::Poly gf::Poly::der() const noexcept
+{//\todo add tests
+    Poly returnValue(*this << 1);
+    for(size_t i = 1; i < returnValue.size(); i += 2)
+        returnValue[i] = 0;
+    return returnValue;
 }
 
 gf::Poly gf::Poly::operator >>(size_t shiftCount) const noexcept

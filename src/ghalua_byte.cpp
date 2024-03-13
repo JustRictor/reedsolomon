@@ -22,6 +22,11 @@ void gf::Byte::operator +=(const Byte &num) noexcept
     value ^= num.value;
 }
 
+gf::Byte::operator uint8_t() const noexcept
+{
+    return this->value;
+}
+
 gf::Byte gf::Byte::operator *(const Byte &num) const noexcept
 {
     if ( num.value   == 0 ) return 0;
@@ -35,16 +40,9 @@ gf::Byte gf::Byte::operator /(const Byte &num) const
 {
     if ( this->value == 0 ) return 0;
     if ( num.value   == 0 ) throw std::invalid_argument("division by 0");
-
-    ///\note определенно есть более правильное решение
-    if (log2table[this->value] > log2table[num.value])
-        return pow2table[
-                static_cast<uint8_t>( log2table[this->value] - log2table[num.value] )
-                ];
-    else
-        return pow2table[
-                static_cast<uint8_t>( log2table[this->value] - log2table[num.value] ) - 1
-                ];
+    return pow2table[
+            (log2table[this->value] - log2table[num.value] + 255) % 255
+            ];
 }
 
 gf::Byte gf::Byte::pow(uint8_t num) const noexcept
@@ -54,6 +52,16 @@ gf::Byte gf::Byte::pow(uint8_t num) const noexcept
     return pow2table[
             log2table[this->value] * num % 255
             ];
+}
+
+gf::Byte gf::Byte::log() const noexcept
+{
+    return log2table[value];
+}
+
+gf::Byte gf::Byte::inverse() const noexcept
+{
+    return Byte(1) / pow2table[value];
 }
 
 std::ostream & gf::operator <<(std::ostream &stream, const Byte &_byte)
