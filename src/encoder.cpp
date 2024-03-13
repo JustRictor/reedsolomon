@@ -28,7 +28,7 @@ gf::Poly rs::Encoder::encode(const gf::Poly &poly) const
 
 gf::Poly rs::Encoder::decode(const gf::Poly &poly)
 {
-    gf::Poly polySyn = calcPolySyn(poly);
+    polySyn = calcPolySyn(poly);
     if( polySyn == gf::Poly( std::vector<gf::Byte>(redundantCharCount,0) ) )
         return poly << redundantCharCount;
     gf::Poly errPos = calcErrPos();
