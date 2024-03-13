@@ -38,7 +38,8 @@ if(ENABLE_TESTS)
     set(TESTS_SOURCES
             test/test_gfByte.cpp
             test/test_gfPoly.cpp
-            test/test_encoder.cpp
+            test/test_encoder_bb.cpp
+            test/test_encoder_wb.cpp
         )
     add_executable(test ${TESTS_SOURCES})
     target_link_libraries(test PRIVATE
