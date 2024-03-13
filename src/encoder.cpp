@@ -64,7 +64,6 @@ gf::Poly rs::Encoder::calcErrPos() const
         if (delta != gf::Byte(0))
         {
             gf::Poly locatorNew = locatorPrev * gf::Poly({delta});
-            ///\todo add gf::Byte::inverse [](){1/2**this->val}
             locatorPrev = locator * gf::Poly({ delta.inverse() });
             locator = locatorNew;
         }
