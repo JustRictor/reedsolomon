@@ -18,7 +18,6 @@ private:
     static inline std::unordered_map<size_t, gf::Poly> polyGenerators{};
 
     gf::Poly polySyn{};
-    gf::Poly  errPos{};
     gf::Poly polyLoc{};
     gf::Poly polyErr{};
 public:

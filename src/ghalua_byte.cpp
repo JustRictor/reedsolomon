@@ -59,6 +59,11 @@ gf::Byte gf::Byte::log() const noexcept
     return log2table[value];
 }
 
+gf::Byte gf::Byte::inverse() const noexcept
+{
+    return Byte(1) / pow2table[value];
+}
+
 std::ostream & gf::operator <<(std::ostream &stream, const Byte &_byte)
 {
     stream << static_cast<int>(_byte.value);

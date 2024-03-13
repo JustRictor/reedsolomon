@@ -34,6 +34,7 @@ public:
 
     Byte pow(uint8_t num) const noexcept;
     Byte log() const noexcept;
+    Byte inverse() const noexcept;
 
     friend std::ostream& operator << (std::ostream& stream, Byte const& _byte);
 

@@ -34,7 +34,7 @@ gf::Poly rs::Encoder::decode(const gf::Poly &poly)
     gf::Poly errPos = calcErrPos();
     polyLoc = calcPolyLoc(errPos);
     polyErr = calcPolyErr();
-    return poly + calcMagnitudes(errPos);
+    return (poly + calcMagnitudes(errPos)) << redundantCharCount;
 }
 
 gf::Poly rs::Encoder::calcPolySyn(const gf::Poly &poly) const noexcept
@@ -65,7 +65,7 @@ gf::Poly rs::Encoder::calcErrPos() const
         {
             gf::Poly locatorNew = locatorPrev * gf::Poly({delta});
             ///\todo add gf::Byte::inverse [](){1/2**this->val}
-            locatorPrev = locator * gf::Poly({ gf::Byte(1) / gf::Byte(2).pow((uint8_t)delta)});
+            locatorPrev = locator * gf::Poly({ delta.inverse() });
             locator = locatorNew;
         }
         locator += locatorPrev * gf::Poly({delta});
