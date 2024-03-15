@@ -40,9 +40,10 @@ gf::Poly rs::Encoder::decode(const gf::Poly &poly)
 gf::Poly rs::Encoder::calcPolySyn(const gf::Poly &poly) const noexcept
 {
     gf::Poly polySyn{};
-    gf::Byte _x{2};
     for(size_t i = 0; i < redundantCharCount; i++)
-        polySyn.push_back(poly(_x));
+    {
+        polySyn.push_back(poly(gf::Byte(2).pow(i+1)));
+    }
     return polySyn;
 }
 
