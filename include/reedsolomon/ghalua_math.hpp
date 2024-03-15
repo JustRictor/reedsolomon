@@ -94,7 +94,7 @@ constexpr std::array<uint8_t, 256> genLog2Table_()
     std::array<uint8_t, 256> pow2Table = genPow2Table_();
     std::array<uint8_t, 256> log2Table{};
 
-    for(size_t i = 0; i < 256; i++)
+    for(size_t i = 0; i < 255; i++)
         log2Table[pow2Table[i]] = i;
 
     return log2Table;

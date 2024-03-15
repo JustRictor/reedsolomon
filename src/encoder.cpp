@@ -77,7 +77,7 @@ gf::Poly rs::Encoder::calcErrPos() const
         if(locator(root) != 0)
             continue;
 
-        errPos.push_back(gf::Byte(1 / root).log());
+        errPos.push_back(gf::Byte(gf::Byte(1) / root).log());
     }
     return errPos;
 }
