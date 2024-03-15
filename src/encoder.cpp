@@ -52,23 +52,24 @@ gf::Poly rs::Encoder::calcErrPos() const
     gf::Poly locator({1});
     gf::Poly locatorPrev(locator);
 
-    uint8_t syndShift = 0;
     for(size_t i = 0; i < redundantCharCount; i++)
     {
-        uint8_t k = i + syndShift;
-        gf::Byte delta = polySyn[k];
+        gf::Byte delta = polySyn[i];
         for(size_t j = 1; j < locator.size(); j++)
         {
-            delta += locator[j] * polySyn[k - j];
+            delta += locator[j] * polySyn[i - j];
         }
         locatorPrev >>= 1;
-        if (delta != gf::Byte(0))
+        if (delta != 0)
         {
-            gf::Poly locatorNew = locatorPrev * gf::Poly({delta});
-            locatorPrev = locator * gf::Poly({ delta.inverse() });
-            locator = locatorNew;
+            if(locatorPrev.size() > locator.size())
+            {
+                gf::Poly locatorNew = locatorPrev * gf::Poly({delta});
+                locatorPrev = locator * gf::Poly({ delta.inverse() });
+                locator = locatorNew;
+            }
+            locator += locatorPrev * gf::Poly({delta});
         }
-        locator += locatorPrev * gf::Poly({delta});
     }
     gf::Poly errPos{};
     for(uint16_t root = 1; root < 256; root++)

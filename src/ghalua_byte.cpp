@@ -61,7 +61,7 @@ gf::Byte gf::Byte::log() const noexcept
 
 gf::Byte gf::Byte::inverse() const noexcept
 {
-    return Byte(1) / pow2table[value];
+    return pow2table[255 - log2table[this->value]];
 }
 
 std::ostream & gf::operator <<(std::ostream &stream, const Byte &_byte)
