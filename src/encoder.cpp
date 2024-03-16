@@ -103,7 +103,7 @@ gf::Poly rs::Encoder::calcPolyErr() const noexcept
 gf::Poly rs::Encoder::calcMagnitudes(const gf::Poly &errPos) const
 {
     gf::Poly magnitudes(
-                std::vector<gf::Byte>(static_cast<uint8_t>(*(errPos.cend()-1)),0)
+                std::vector<gf::Byte>(static_cast<uint8_t>(*(errPos.cend()-1)) + 1,0)
                 );
     gf::Poly polyLocDer = polyLoc.der();
     std::for_each(errPos.cbegin(),errPos.cend(),
